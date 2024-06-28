@@ -1,14 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
+import SampleInputDialog from "./sampleInputdialog";
+
 const Calculator: React.FC = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
   return (
     <div className="flex flex-col items-center mt-40">
       <div className="w-1/2 relative">
-        <div className="flex justify-end items-center mb-2 text-gray-400 text-sm pointer-events-auto">
+        <div
+          className="flex justify-end items-center mb-2 text-gray-400 text-sm pointer-events-auto cursor-pointer"
+          onClick={handleOpenDialog}
+        >
           <FontAwesomeIcon icon={faInfoCircle} className="mr-1 w-4 h-4" />
           <span>Sample Input Strings</span>
         </div>
@@ -20,6 +34,7 @@ const Calculator: React.FC = () => {
       <button className="px-4 py-2 mt-4 text-lg font-semibold text-white bg-blue-950 rounded hover:bg-blue-1000">
         Calculate
       </button>
+      <SampleInputDialog isOpen={isDialogOpen} onClose={handleCloseDialog} />
     </div>
   );
 };

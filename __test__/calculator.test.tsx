@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 import "@testing-library/jest-dom/extend-expect";
 import Calculator from "../app/_components/Calculator";
@@ -25,5 +25,19 @@ describe("Calculator", () => {
     expect(infoText).toBeInTheDocument();
     const infoIcon = screen.getByRole("img", { hidden: true });
     expect(infoIcon).toHaveClass("fa-circle-info");
+  });
+  it("should open and close the dialog when clicking on Sample Input Strings", () => {
+    render(<Calculator />);
+    const infoText = screen.getByText("Sample Input Strings");
+
+    // Click to open dialog
+    fireEvent.click(infoText);
+    const dialog = screen.getByTestId("dialog-content");
+    expect(dialog).toBeInTheDocument();
+
+    // Click to close dialog
+    const closeButton = screen.getByLabelText("Close");
+    fireEvent.click(closeButton);
+    expect(dialog).not.toBeInTheDocument();
   });
 });
