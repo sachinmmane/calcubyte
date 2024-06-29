@@ -33,5 +33,12 @@ export const calculate = (inputValue: string): number | undefined => {
   // Calculate the sum of the parsed numbers
   const sum = numbers.reduce((acc, num) => acc + num, 0);
 
+  // Handels Not a number error
+  if (Number.isNaN(sum)) {
+    throw new Error(
+      `Please enter valid input as described in the Sample Input Strings`
+    );
+  }
+
   return sum;
 };

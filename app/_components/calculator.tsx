@@ -28,12 +28,13 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
     setIsResult(false);
     setIsError(false);
     try {
-      setIsResult(true);
       setResult(calculate(inputValue));
+      setIsResult(true);
     } catch (error: any) {
       if (error instanceof Error) {
-        setIsError(true);
         setError(error.message);
+        setIsResult(false);
+        setIsError(true);
       } else {
         setIsError(true);
         setError("An unknown error occurred");
@@ -64,9 +65,9 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
           className="w-full h-40 p-4 text-lg border border-gray-300 rounded"
           placeholder="Enter the String to calculate the sum."
           onChange={(e) => {
-            setIsError(false)
-            setIsResult(false)
-            setInputValue(e.target.value)
+            setIsError(false);
+            setIsResult(false);
+            setInputValue(e.target.value);
           }}
         ></textarea>
       </div>
@@ -78,7 +79,7 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
       </button>
       {isResult && <p data-testid="result">Result: {result}</p>}
       {isError && (
-        <p className="text-red-400 " data-testid="error">
+        <p className="text-red-400" data-testid="error">
           Error: {error}
         </p>
       )}
