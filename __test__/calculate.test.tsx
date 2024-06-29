@@ -29,4 +29,10 @@ describe("calculate function", () => {
     expect(result1).toBe(6);
     expect(result2).toBe(25);
   });
+  test("calculate returns the correct sum with support for different delimiters", () => {
+    const result1 = calculate("//;\n1;2");
+    expect(result1).toBe(3);
+    const result2 = calculate("//;\n1\n2;6\n7;4");
+    expect(result2).toBe(20);
+  });
 });
