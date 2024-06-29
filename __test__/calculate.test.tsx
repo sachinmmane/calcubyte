@@ -46,4 +46,10 @@ describe("calculate function", () => {
       "Negative numbers not allowed: -2, -3, -5"
     );
   });
+  it("throws an error for not a number", () => {
+    const input = "sadsa";
+    expect(() => calculate(input)).toThrow(
+      "Please enter valid input as described in the Sample Input Strings"
+    );
+  });
 });
