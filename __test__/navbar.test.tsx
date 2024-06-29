@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../app/_components/Navbar";
 
 import { render, screen, fireEvent } from "@testing-library/react";
+import Calculator from "@/app/_components/Calculator";
 
 describe("Navbar", () => {
   it("should contain the application name", () => {
