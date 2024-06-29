@@ -1,16 +1,26 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHistory } from "@fortawesome/free-solid-svg-icons";
+interface NavbarProps {
+  onToggleSidebar: () => void;
+}
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
   return (
-    <nav>
+    <nav className="p-4 fixed w-full z-10">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-3xl font-bold">calcubyte</div>
-        <div>
-          <button className="hover:text-gray-400 flex items-center bg-transparent border-none">
+        <div className="text-3xl font-bold absolute left-auto transform -translate-x-1/2">
+          calcubyte
+        </div>
+        <div
+          className={`flex transition-all duration-300 justify-end w-full ml-auto`}
+        >
+          <button
+            className="hover:text-gray-400 flex items-center bg-transparent border-none"
+            onClick={onToggleSidebar}
+          >
             <FontAwesomeIcon icon={faHistory} className="mr-2 h-4 w-4" />
-            History
+            <span className="hidden md:inline">Calculation Log</span>
           </button>
         </div>
       </div>

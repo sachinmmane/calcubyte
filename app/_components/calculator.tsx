@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import SampleInputDialog from "./SampleInputdialog";
 
-import SampleInputDialog from "./sampleInputdialog";
-
-const Calculator: React.FC = () => {
+const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
+  isSidebarOpen,
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -16,14 +17,23 @@ const Calculator: React.FC = () => {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
+
   return (
-    <div className="flex flex-col items-center mt-40">
-      <div className="w-1/2 relative">
+    <div
+      className={`flex flex-col items-center mt-40 transition-all duration-300 ${
+        isSidebarOpen ? "mr-64" : "mr-0"
+      }`}
+    >
+      <div className={`w-2/3 relative`}>
         <div
           className="flex justify-end items-center mb-2 text-gray-400 text-sm pointer-events-auto cursor-pointer"
           onClick={handleOpenDialog}
         >
-          <FontAwesomeIcon icon={faInfoCircle} className="mr-1 w-4 h-4" />
+          <FontAwesomeIcon
+            icon={faInfoCircle}
+            className="mr-1 w-4 h-4"
+            data-testid="info-icon"
+          />
           <span>Sample Input Strings</span>
         </div>
         <textarea

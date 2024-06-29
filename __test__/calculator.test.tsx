@@ -6,7 +6,7 @@ import Calculator from "../app/_components/Calculator";
 
 describe("Calculator", () => {
   it("should render the input textarea", () => {
-    render(<Calculator />);
+    render(<Calculator isSidebarOpen={false} />);
     const textarea = screen.getByPlaceholderText(
       "Enter the String to calculate the sum."
     );
@@ -14,20 +14,20 @@ describe("Calculator", () => {
   });
 
   it("should render the Calculate button", () => {
-    render(<Calculator />);
+    render(<Calculator isSidebarOpen={false} />);
     const calculateButton = screen.getByRole("button", { name: /calculate/i });
     expect(calculateButton).toBeInTheDocument();
   });
 
   it("should render the info icon with text", () => {
-    render(<Calculator />);
+    render(<Calculator isSidebarOpen={false} />);
     const infoText = screen.getByText("Sample Input Strings");
     expect(infoText).toBeInTheDocument();
     const infoIcon = screen.getByRole("img", { hidden: true });
     expect(infoIcon).toHaveClass("fa-circle-info");
   });
   it("should open and close the dialog when clicking on Sample Input Strings", () => {
-    render(<Calculator />);
+    render(<Calculator isSidebarOpen={false} />);
     const infoText = screen.getByText("Sample Input Strings");
 
     // Click to open dialog
