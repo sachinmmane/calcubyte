@@ -23,6 +23,13 @@ export const calculate = (inputValue: string): number | undefined => {
     .split(delimiter)
     .map((numStr) => parseInt(numStr.trim(), 10));
 
+  // Check for negative numbers
+  const negativeNumbers = numbers.filter((num) => num < 0);
+  if (negativeNumbers.length > 0) {
+    const negativeNumbersList = negativeNumbers.join(", ");
+    throw new Error(`Negative numbers not allowed: ${negativeNumbersList}`);
+  }
+
   // Calculate the sum of the parsed numbers
   const sum = numbers.reduce((acc, num) => acc + num, 0);
 

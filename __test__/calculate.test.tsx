@@ -35,4 +35,15 @@ describe("calculate function", () => {
     const result2 = calculate("//;\n1\n2;6\n7;4");
     expect(result2).toBe(20);
   });
+  it("throws an error for negative numbers", () => {
+    const input = "//;\n1;-2;3";
+    expect(() => calculate(input)).toThrow("Negative numbers not allowed: -2");
+  });
+
+  it("throws an error for multiple negative numbers", () => {
+    const input = "//;\n1;-2;-3;4;-5";
+    expect(() => calculate(input)).toThrow(
+      "Negative numbers not allowed: -2, -3, -5"
+    );
+  });
 });
