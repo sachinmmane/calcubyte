@@ -23,4 +23,10 @@ describe("calculate function", () => {
     const result = calculate(longInput);
     expect(result).toBe(expectedSum);
   });
+  test("calcualte returns the correct sum for newline and comma-reprated numbers", () => {
+    const result1 = calculate("1\n2,3");
+    const result2 = calculate("1\n3,6\n6,2\n7");
+    expect(result1).toBe(6);
+    expect(result2).toBe(25);
+  });
 });
