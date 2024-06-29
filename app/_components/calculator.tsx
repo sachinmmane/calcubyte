@@ -13,6 +13,8 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
   const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState<number | undefined>(0);
   const [isResult, setIsResult] = useState(false);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -23,8 +25,21 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
   };
 
   const handleCalculate = () => {
-    setIsResult(true);
-    setResult(calculate(inputValue));
+    setIsResult(false);
+    setIsError(false);
+    try {
+      setIsResult(true);
+      setResult(calculate(inputValue));
+    } catch (error: any) {
+      if (error instanceof Error) {
+        setIsError(true);
+        setError(error.message);
+      } else {
+        setIsError(true);
+        setError("An unknown error occurred");
+        console.error("An unknown error occurred:", error);
+      }
+    }
   };
 
   return (
@@ -48,7 +63,11 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
         <textarea
           className="w-full h-40 p-4 text-lg border border-gray-300 rounded"
           placeholder="Enter the String to calculate the sum."
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setIsError(false)
+            setIsResult(false)
+            setInputValue(e.target.value)
+          }}
         ></textarea>
       </div>
       <button
@@ -58,6 +77,11 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
         Calculate
       </button>
       {isResult && <p data-testid="result">Result: {result}</p>}
+      {isError && (
+        <p className="text-red-400 " data-testid="error">
+          Error: {error}
+        </p>
+      )}
       <SampleInputDialog isOpen={isDialogOpen} onClose={handleCloseDialog} />
     </div>
   );
