@@ -1,20 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import SampleInputDialog from "./SampleInputdialog";
-import { calculate } from "../_utils/Caluclate";
+import { calculate, saveLogs } from "../_utils/Caluclate";
 
-const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
-  isSidebarOpen,
-}) => {
+const Calculator: React.FC<{
+  isSidebarOpen: boolean;
+  onLogs: any;
+}> = ({ isSidebarOpen, onLogs }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [result, setResult] = useState<number | undefined>(0);
+  const [result, setResult] = useState<number>(0);
   const [isResult, setIsResult] = useState(false);
   const [error, setError] = useState("");
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    updatedLogs();
+  }, []);
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -24,12 +29,15 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
     setIsDialogOpen(false);
   };
 
-  const handleCalculate = () => {
+  const handleCalculate = async () => {
     setIsResult(false);
     setIsError(false);
     try {
-      setResult(calculate(inputValue));
+      const calculationResult = await calculate(inputValue);
+      setResult(calculationResult);
       setIsResult(true);
+      saveLogs(inputValue, calculationResult);
+      updatedLogs();
     } catch (error: any) {
       if (error instanceof Error) {
         setError(error.message);
@@ -40,6 +48,15 @@ const Calculator: React.FC<{ isSidebarOpen: boolean }> = ({
         setError("An unknown error occurred");
         console.error("An unknown error occurred:", error);
       }
+    }
+  };
+
+  const updatedLogs = () => {
+    const storedLogs = localStorage.getItem("logs");
+    if (storedLogs) {
+      const parsedLogs: { input: string; output: number }[] =
+        JSON.parse(storedLogs);
+      onLogs(parsedLogs);
     }
   };
 

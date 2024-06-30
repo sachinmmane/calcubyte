@@ -1,4 +1,4 @@
-export const calculate = (inputValue: string): number | undefined => {
+export const calculate = (inputValue: string): number => {
   if (inputValue === "") return 0;
 
   let delimiter = ","; // Default delimiter
@@ -41,4 +41,23 @@ export const calculate = (inputValue: string): number | undefined => {
   }
 
   return sum;
+};
+
+export const saveLogs = (input: string, output: number) => {
+  // Retrieve existing logs from local storage
+  let logs: { input: string; output: number }[] = JSON.parse(
+    localStorage.getItem("logs") || "[]"
+  );
+
+  // Create a new log entry
+  const newItem = {
+    input: input,
+    output: output,
+  };
+
+  // Append the new log entry to the existing logs array
+  logs.push(newItem);
+
+  // Store the updated logs array back into local storage
+  localStorage.setItem("logs", JSON.stringify(logs));
 };

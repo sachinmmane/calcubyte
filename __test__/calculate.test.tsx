@@ -1,4 +1,4 @@
-import { calculate } from "../app/_utils/Caluclate";
+import { calculate, saveLogs } from "../app/_utils/Caluclate";
 const generateLongString = (numValues: number): string => {
   const values = Array.from({ length: numValues }, (_, index) => index + 1);
   return values.join(",");
@@ -51,5 +51,28 @@ describe("calculate function", () => {
     expect(() => calculate(input)).toThrow(
       "Please enter valid input as described in the Sample Input Strings"
     );
+  });
+});
+
+describe("saveLogs function", () => {
+  beforeEach(() => {
+    localStorage.clear(); // Clear localStorage before each test
+  });
+
+  it("should save a log entry to localStorage", () => {
+    // Define test input and output
+    const input = "1,2,3";
+    const output = 6;
+
+    // Call the function under test
+    saveLogs(input, output);
+
+    // Retrieve logs from localStorage and parse them
+    const storedLogs = JSON.parse(localStorage.getItem("logs") || "[]");
+
+    // Assert the storedLogs contains the correct log entry
+    expect(storedLogs).toHaveLength(1); // Ensure there is exactly one log entry
+    expect(storedLogs[0].input).toBe(input); // Check input value
+    expect(storedLogs[0].output).toBe(output); // Check output value
   });
 });
