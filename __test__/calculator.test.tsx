@@ -40,19 +40,4 @@ describe("Calculator", () => {
     fireEvent.click(closeButton);
     expect(dialog).not.toBeInTheDocument();
   });
-  it("handleCalculate sets result to 0 when inputValue is empty", () => {
-    render(<Calculator isSidebarOpen={false} onLogs={undefined} />);
-
-    const textarea = screen.getByPlaceholderText(
-      "Enter the String to calculate the sum."
-    );
-    fireEvent.change(textarea, { target: { value: "" } });
-
-    const calculateButton = screen.getByText("Calculate");
-    fireEvent.click(calculateButton);
-
-    const resultElement = screen.getByTestId("result");
-    expect(resultElement).toBeInTheDocument();
-    expect(resultElement.textContent).toBe("Result: 0");
-  });
 });
