@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 import "@testing-library/jest-dom/extend-expect";
-import Calculator from "../app/_components/Calculator";
+import Calculator from "../app/_components/Calcualtor";
 
 describe("Calculator", () => {
   it("should render the input textarea", () => {

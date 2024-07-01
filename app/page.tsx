@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Navbar from "./_components/Navbar";
-import Calculator from "./_components/Calculator";
+import Calculator from "./_components/Calcualtor";
 import CalculationsLog from "./_components/CalculationsLog";
 
 export default function Home() {
