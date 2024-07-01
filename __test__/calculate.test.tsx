@@ -47,7 +47,7 @@ describe("calculate function", () => {
     );
   });
   it("throws an error for not a number", () => {
-    const input = "sadsa";
+    const input = "testing";
     expect(() => calculate(input)).toThrow(
       "Please enter valid input as described in the Sample Input Strings"
     );
@@ -78,5 +78,11 @@ describe("saveLogs function", () => {
     expect(storedLogs).toHaveLength(1); // Ensure there is exactly one log entry
     expect(storedLogs[0].input).toBe(input); // Check input value
     expect(storedLogs[0].output).toBe(output); // Check output value
+  });
+  it("calculate returns the correct sum with support for delimiters can be of any length", () => {
+    const result1 = calculate("//[***]\n1***2***3");
+    expect(result1).toBe(6);
+    const result2 = calculate("//[$$$$]\n1$$$$2$$$$3$$$$6");
+    expect(result2).toBe(12);
   });
 });
