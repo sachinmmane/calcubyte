@@ -7,9 +7,10 @@ export const calculate = (inputValue: string): number => {
   // Check if the input starts with a custom delimiter definition
   if (inputValue.startsWith("//")) {
     // Extract delimiter from the input
-    const delimiterMatch = inputValue.match(/^\/\/(.*)\n/);
+    const delimiterMatch =
+      inputValue.match(/^\/\/(\[?.*?\])\n/) || inputValue.match(/^\/\/(.*)\n/);
     if (delimiterMatch && delimiterMatch[1]) {
-      delimiter = delimiterMatch[1];
+      delimiter = delimiterMatch[1].replace("[", "").replace("]", "");
       // Remove the delimiter definition from the input string
       numbersString = inputValue.substring(delimiterMatch[0].length);
     }
@@ -31,7 +32,13 @@ export const calculate = (inputValue: string): number => {
   }
 
   // Calculate the sum of the parsed numbers
-  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  const sum = numbers.reduce((acc, num) => {
+    if (num <= 1000) {
+      return acc + num;
+    } else {
+      return acc;
+    }
+  });
 
   // Handels Not a number error
   if (Number.isNaN(sum)) {
