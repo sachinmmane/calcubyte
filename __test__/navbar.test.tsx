@@ -4,7 +4,7 @@ import Navbar from "../app/_components/Navbar";
 import { render, screen } from "@testing-library/react";
 
 describe("Navbar", () => {
-  it("should contain the application name", () => {
+  it("should contain the calcubyte logo", () => {
     render(
       <Navbar
         onToggleSidebar={function (): void {
@@ -12,7 +12,7 @@ describe("Navbar", () => {
         }}
       />
     );
-    const myElem = screen.getByText("calcubyte");
+    const myElem = screen.getByAltText("Calcubyte Logo");
     expect(myElem).toBeInTheDocument();
   });
   it("should contain the Calculation Log button", () => {
